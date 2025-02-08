@@ -70,9 +70,7 @@ func (l *Lexer) NextToken() token.Token {
 				break
 			}
 		}
-		t.Tp = token.ILLEGAL
-		panic(token.ILLEGAL)
-		//TODO: numbers
+		return t
 	}
 	return t
 }

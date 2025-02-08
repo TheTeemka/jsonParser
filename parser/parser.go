@@ -18,81 +18,95 @@ func New(data []byte) *Parser {
 	}
 }
 
-func (p *Parser) Parse() *tree.Node {
+func (p *Parser) Parse() (*tree.Node, error) {
 	t := p.lexer.NextToken()
+	if t.Tp == token.ILLEGAL {
+		return nil, fmt.Errorf("invalid token at %v from %v to %v", t.Line+1, t.Start, t.End)
+	}
 	if t.Tp != token.LeftBrace {
-		pan(t.Line, "Not JSON")
+		return nil, fmt.Errorf("invalid json format (not starts with '{')")
 	}
 	return p.parseJSON()
 }
 
-func (p *Parser) parseJSON() *tree.Node {
+func (p *Parser) parseJSON() (*tree.Node, error) {
 	return p.parseField(false)
 }
 
-func (p *Parser) parseField(continuation bool) *tree.Node {
+func (p *Parser) parseField(continuation bool) (*tree.Node, error) {
 	var node tree.Node
 
 	t := p.lexer.NextToken()
 	if t.Tp == token.RightBrace {
-		return nil
+		return nil, nil
 	}
 
 	if continuation {
 		if t.Tp != token.Comma {
-			pan(t.Line, "Not Comma")
+			return nil, fmt.Errorf("there is not comma in array at %v", t.Line)
 		}
 		t = p.lexer.NextToken()
 	}
 
 	if t.Tp != token.String {
-		pan(t.Line, "Not Key")
+		return nil, fmt.Errorf("field is not string at %v", t.Line)
 	}
 	node.Key = t.Literal
 
 	t = p.lexer.NextToken()
 	if t.Tp != token.Colon {
-		pan(t.Line, "Not Colon")
+		return nil, fmt.Errorf("there is not colon after field at %v", t.Line)
 	}
 
 	t = p.lexer.NextToken()
-	p.parseValue(&node, t)
-
+	err := p.parseValue(&node, t)
+	if err != nil {
+		return nil, err
+	}
 	// fmt.Println(node)
-	node.Next = p.parseField(true)
-	return &node
+	node.Next, err = p.parseField(true)
+	if err != nil {
+		return nil, err
+	}
+	return &node, nil
 }
 
-func (p *Parser) parseArrayElements(continuation bool, index int) *tree.Node {
+func (p *Parser) parseArrayElements(continuation bool, index int) (*tree.Node, error) {
 	var node tree.Node
 
 	t := p.lexer.NextToken()
 	if t.Tp == token.RightBracket {
-		return nil
+		return nil, nil
 	}
 
 	if continuation {
 		if t.Tp != token.Comma {
-			pan(t.Line, "Not Comma")
+			return nil, fmt.Errorf("there is not comma in array at %v", t.Line)
 		}
 		t = p.lexer.NextToken()
 	}
 
 	node.Key = strconv.Itoa(index)
-	p.parseValue(&node, t)
-
-	node.Next = p.parseArrayElements(true, index+1)
-	return &node
+	err := p.parseValue(&node, t)
+	if err != nil {
+		return nil, err
+	}
+	node.Next, err = p.parseArrayElements(true, index+1)
+	if err != nil {
+		return nil, err
+	}
+	return &node, nil
 }
 
-func (p *Parser) parseValue(node *tree.Node, t token.Token) {
+func (p *Parser) parseValue(node *tree.Node, t token.Token) error {
+	var err error
 	switch t.Tp {
 	case token.LeftBrace:
 		node.ValueType = tree.JSON
-		node.Value = p.parseJSON()
+		node.Value, err = p.parseJSON()
 	case token.LeftBracket:
 		node.ValueType = tree.Array
-		node.Value = p.parseArrayElements(false, 0)
+		node.Value, err = p.parseArrayElements(false, 0)
 	case token.String:
 		node.ValueType = tree.String
 		node.Value = t.Literal
@@ -106,9 +120,7 @@ func (p *Parser) parseValue(node *tree.Node, t token.Token) {
 		node.ValueType = tree.Null
 		node.Value = t.Literal
 	default:
-		pan(t.Line, "Not Value")
+		err = fmt.Errorf("invalid value type at %v", t.Line)
 	}
-}
-func pan(line int, s string) {
-	panic(fmt.Sprintf("%v: %s", line, s))
+	return err
 }

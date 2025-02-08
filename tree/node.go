@@ -1,6 +1,9 @@
 package tree
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type Type string
 
@@ -39,23 +42,32 @@ func (n *Node) valueString() string {
 
 	return w.String()
 }
-func (n *Node) Get(path string) string {
+func (n *Node) Get(path string) (string, error) {
 	f := func(r rune) bool {
 		return r == '.' || r == '[' || r == ']'
 	}
 
 	fields := strings.FieldsFunc(path, f)
-	return n.get(fields)
+	return n.get(fields, 0)
 }
 
-func (n *Node) get(fields []string) string {
-	if n.Key == fields[0] {
-		if len(fields) == 1 {
-			return n.valueString()
+func (n *Node) get(fields []string, ind int) (string, error) {
+	if len(fields) == ind {
+		return "", fmt.Errorf("there is not such field(%s)", strings.Join(fields[:ind], "."))
+	}
+	if n.Key == fields[ind] {
+		if len(fields)-1 == ind {
+			return n.valueString(), nil
 		}
-		js := n.Value.(*Node)
-		return js.get(fields[1:])
+		js, ok := n.Value.(*Node)
+		if !ok {
+			return "", fmt.Errorf("there is not such field(%s)", strings.Join(fields[:ind+2], "."))
+		}
+		return js.get(fields, ind+1)
 	} else {
-		return n.Next.get(fields)
+		if n.Next == nil {
+			return "", fmt.Errorf("there is not such field(%s)", strings.Join(fields[:ind+1], "."))
+		}
+		return n.Next.get(fields, ind)
 	}
 }

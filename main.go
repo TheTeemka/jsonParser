@@ -20,7 +20,10 @@ func main() {
 	f.Close()
 
 	p := parser.New(s)
-	n := p.Parse()
+	n, err := p.Parse()
+	if err != nil {
+		panic(err)
+	}
 
 	log.Println("Parsing finished")
 
@@ -31,5 +34,5 @@ func main() {
 	defer output.Close()
 	output.WriteString(n.String())
 
-	fmt.Println(n.Get("education[1].courses[0]"))
+	fmt.Println(n.Get("education[1].courses[1]"))
 }
