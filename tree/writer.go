@@ -7,10 +7,11 @@ import (
 
 type nodeWriter struct {
 	strings.Builder
+	tabSize string
 }
 
-func newNodeWriter() *nodeWriter {
-	return &nodeWriter{}
+func newNodeWriter(tab string) *nodeWriter {
+	return &nodeWriter{tabSize: tab}
 }
 
 func (w *nodeWriter) write(ss ...any) {
@@ -22,40 +23,38 @@ func (w *nodeWriter) write(ss ...any) {
 	}
 }
 
-func (w *nodeWriter) writeField(n *Node, tab string) {
-	w.write("%s%q: ", tab, n.Key)
-	w.writeValue(n, tab)
+func (w *nodeWriter) writeField(n *Node) {
+	w.write("%q: ", n.Key)
+	w.writeValue(n)
 	if n.Next != nil {
-		w.write(",\n")
-		w.writeField(n.Next, tab)
-	} else {
-		w.write("\n")
+		w.write(",")
+		w.writeField(n.Next)
 	}
 }
 
-func (w *nodeWriter) writeValue(n *Node, tab string) {
+func (w *nodeWriter) writeValue(n *Node) {
 	switch n.ValueType {
 	case JSON:
-		w.write("{\n")
+		w.write("{")
 		js := n.Value.(*Node)
-		w.writeField(js, tab+defaultTAB)
-		w.write("%s}", tab)
+		w.writeField(js)
+		w.write("}")
 	case String:
 		w.write("%q", n.Value)
 	case Number, Bool, Null:
 		w.write(n.Value)
 	case Array:
-		w.write("[\n%s", tab+defaultTAB)
+		w.write("[")
 		arr := n.Value.(*Node)
-		w.writeArray(arr, tab+defaultTAB)
-		w.write("\n%s]", tab)
+		w.writeArray(arr)
+		w.write("]")
 	}
 }
 
-func (w *nodeWriter) writeArray(n *Node, tab string) {
-	w.writeValue(n, tab)
+func (w *nodeWriter) writeArray(n *Node) {
+	w.writeValue(n)
 	if n.Next != nil {
-		w.write(",\n%s", tab)
-		w.writeArray(n.Next, tab)
+		w.write(",")
+		w.writeArray(n.Next)
 	}
 }

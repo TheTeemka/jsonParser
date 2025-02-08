@@ -5,183 +5,207 @@
 	"isHuman": true,
 	"isAnimal": false,
 	"address": {
-	  "street": "123 Main St",
-	  "city": "Anytown",
-	  "state": "CA",
-	  "zip": "12345",
-	  "coordinates": {
-		"latitude": "40.7128N",
-		"longitude": "74.0060W"
-	  }
+		"street": "123 Main St",
+		"city": "Anytown",
+		"state": "CA",
+		"zip": "12345",
+		"coordinates": {
+			"latitude": "40.7128N",
+			"longitude": "74.0060W"
+		}
 	},
 	"phoneNumbers": [
-	  {
-		"type": "home",
-		"number": "555-555-5555"
-	  },
-	  {
-		"type": "work",
-		"number": "555-555-5556"
-	  }
+		{
+			"type": "home",
+			"number": "555-555-5555"
+		},
+		{
+			"type": "work",
+			"number": "555-555-5556"
+		}
 	],
 	"email": "john.doe@example.com",
 	"hobbies": [
-	  "reading",
-	  "traveling",
-	  "swimming"
+		"reading",
+		"traveling",
+		"swimming"
 	],
 	"education": [
-	  {
-		"degree": "B.Sc",
-		"major": "Computer Science",
-		"year": 2010,
-		"institution": "University of Example",
-		"courses": [
-		  {
-			"name": "Algorithms",
-			"grade": "A"
-		  },
-		  {
-			"name": "Data Structures",
-			"grade": "A-"
-		  }
-		]
-	  },
-	  {
-		"degree": "M.Sc",
-		"major": "Software Engineering",
-		"year": 2012,
-		"institution": "Example Institute of Technology",
-		"courses": [
-		  {
-			"name": "Advanced Algorithms",
-			"grade": "A"
-		  },
-		  {
-			"name": "Distributed Systems",
-			"grade": "B+"
-		  }
-		]
-	  }
+		{
+			"degree": "B.Sc",
+			"major": "Computer Science",
+			"year": 2010,
+			"institution": "University of Example",
+			"courses": [
+				{
+					"name": "Algorithms",
+					"grade": "A"
+				},
+				{
+					"name": "Data Structures",
+					"grade": "A-"
+				}
+			]
+		},
+		{
+			"degree": "M.Sc",
+			"major": "Software Engineering",
+			"year": 2012,
+			"institution": "Example Institute of Technology",
+			"courses": [
+				{
+					"name": "Advanced Algorithms",
+					"grade": "A"
+				},
+				{
+					"name": "Distributed Systems",
+					"grade": "B+"
+				}
+			]
+		}
 	],
 	"workExperience": [
-	  {
-		"company": "Tech Corp",
-		"position": "Software Developer",
-		"years": 3,
-		"projects": [
-		  {
-			"name": "Project A",
-			"description": "Developed a web application.",
-			"technologies": ["JavaScript", "React", "Node.js"],
-			"teamMembers": [
-			  {
-				"name": "Alice",
-				"role": "Frontend Developer"
-			  },
-			  {
-				"name": "Bob",
-				"role": "Backend Developer"
-			  }
+		{
+			"company": "Tech Corp",
+			"position": "Software Developer",
+			"years": 3,
+			"projects": [
+				{
+					"name": "Project A",
+					"description": "Developed a web application.",
+					"technologies": [
+						"JavaScript",
+						"React",
+						"Node.js"
+					],
+					"teamMembers": [
+						{
+							"name": "Alice",
+							"role": "Frontend Developer"
+						},
+						{
+							"name": "Bob",
+							"role": "Backend Developer"
+						}
+					]
+				},
+				{
+					"name": "Project B",
+					"description": "Led the development of a mobile app.",
+					"technologies": [
+						"Kotlin",
+						"Swift"
+					],
+					"teamMembers": [
+						{
+							"name": "Charlie",
+							"role": "Mobile Developer"
+						},
+						{
+							"name": "Dave",
+							"role": "UI/UX Designer"
+						}
+					]
+				}
 			]
-		  },
-		  {
-			"name": "Project B",
-			"description": "Led the development of a mobile app.",
-			"technologies": ["Kotlin", "Swift"],
-			"teamMembers": [
-			  {
-				"name": "Charlie",
-				"role": "Mobile Developer"
-			  },
-			  {
-				"name": "Dave",
-				"role": "UI/UX Designer"
-			  }
+		},
+		{
+			"company": "Innovate Ltd",
+			"position": "Senior Developer",
+			"years": 5,
+			"projects": [
+				{
+					"name": "Project X",
+					"description": "Architected a cloud-based solution.",
+					"technologies": [
+						"AWS",
+						"Docker",
+						"Kubernetes"
+					],
+					"teamMembers": [
+						{
+							"name": "Eve",
+							"role": "DevOps Engineer"
+						},
+						{
+							"name": "Frank",
+							"role": "Cloud Architect"
+						}
+					]
+				},
+				{
+					"name": "Project Y",
+					"description": "Managed a team of developers.",
+					"technologies": [
+						"Python",
+						"Django"
+					],
+					"teamMembers": [
+						{
+							"name": "Grace",
+							"role": "Backend Developer"
+						},
+						{
+							"name": "Heidi",
+							"role": "Frontend Developer"
+						}
+					]
+				}
 			]
-		  }
-		]
-	  },
-	  {
-		"company": "Innovate Ltd",
-		"position": "Senior Developer",
-		"years": 5,
-		"projects": [
-		  {
-			"name": "Project X",
-			"description": "Architected a cloud-based solution.",
-			"technologies": ["AWS", "Docker", "Kubernetes"],
-			"teamMembers": [
-			  {
-				"name": "Eve",
-				"role": "DevOps Engineer"
-			  },
-			  {
-				"name": "Frank",
-				"role": "Cloud Architect"
-			  }
-			]
-		  },
-		  {
-			"name": "Project Y",
-			"description": "Managed a team of developers.",
-			"technologies": ["Python", "Django"],
-			"teamMembers": [
-			  {
-				"name": "Grace",
-				"role": "Backend Developer"
-			  },
-			  {
-				"name": "Heidi",
-				"role": "Frontend Developer"
-			  }
-			]
-		  }
-		]
-	  }
+		}
 	],
 	"certifications": [
-	  {
-		"name": "Certified Kubernetes Administrator",
-		"year": 2018,
-		"issuer": "Cloud Native Computing Foundation"
-	  },
-	  {
-		"name": "AWS Certified Solutions Architect",
-		"year": 2019,
-		"issuer": "Amazon Web Services"
-	  }
+		{
+			"name": "Certified Kubernetes Administrator",
+			"year": 2018,
+			"issuer": "Cloud Native Computing Foundation"
+		},
+		{
+			"name": "AWS Certified Solutions Architect",
+			"year": 2019,
+			"issuer": "Amazon Web Services"
+		}
 	],
 	"languages": [
-	  {
-		"name": "English",
-		"proficiency": "Native"
-	  },
-	  {
-		"name": "Spanish",
-		"proficiency": "Intermediate"
-	  }
+		{
+			"name": "English",
+			"proficiency": "Native"
+		},
+		{
+			"name": "Spanish",
+			"proficiency": "Intermediate"
+		}
 	],
 	"publications": [
-	  {
-		"title": "Advanced Algorithms in Practice",
-		"year": 2020,
-		"publisher": "Tech Books Publishing",
-		"authors": ["John Doe", "Jane Smith"]
-	  },
-	  {
-		"title": "Distributed Systems: Concepts and Design",
-		"year": 2021,
-		"publisher": "Innovate Press",
-		"authors": ["John Doe", "Michael Johnson"]
-	  }
+		{
+			"title": "Advanced Algorithms in Practice",
+			"year": 2020,
+			"publisher": "Tech Books Publishing",
+			"authors": [
+				"John Doe",
+				"Jane Smith"
+			]
+		},
+		{
+			"title": "Distributed Systems: Concepts and Design",
+			"year": 2021,
+			"publisher": "Innovate Press",
+			"authors": [
+				"John Doe",
+				"Michael Johnson"
+			]
+		}
 	],
 	"miscellaneous": {
-	  "favoriteNumbers": [7, 42, 100],
-	  "notes": null,
-	  "metadata": {
-		"created": "2023-01-01T12:00:00Z",
-		"updated": "2023-10-01T12:00:00Z"
-	  }
+		"favoriteNumbers": [
+			7,
+			42,
+			100
+		],
+		"notes": null,
+		"metadata": {
+			"created": "2023-01-01T12:00:00Z",
+			"updated": "2023-10-01T12:00:00Z"
+		}
 	}
-  }
+}

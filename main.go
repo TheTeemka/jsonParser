@@ -32,7 +32,7 @@ func main() {
 		panic(err)
 	}
 	defer output.Close()
-	output.WriteString(n.String())
+	output.WriteString(n.String("\t"))
 
-	fmt.Println(n.Get("education[1].courses[1]"))
+	fmt.Println(n.Get("education[1].courses[1]", " "))
 }
